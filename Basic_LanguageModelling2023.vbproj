@@ -72,6 +72,7 @@
     <Compile Include="LanguageModels\LanguageModels.vb" />
     <Compile Include="LanguageModels\PremiseDetector.vb" />
     <Compile Include="LanguageModels\Softmax.vb" />
+    <Compile Include="LanguageModels\TextExtensions.vb" />
     <Compile Include="LanguageModels\Tril.vb" />
     <Compile Include="LanguageModels\VocabularyCreator.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
