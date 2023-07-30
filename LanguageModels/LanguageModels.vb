@@ -1033,7 +1033,7 @@ Namespace LanguageModels
                     '2. Add Language Modeling Functionality:
                     Public Class LanguageModel
 
-                        Private iTrainedModel As NgramFunctions.NgramTrainer
+                        Public iTrainedModel As NgramFunctions.NgramTrainer
 
                         Public Sub New(n As Integer, ByRef Corpus As List(Of String))
 
@@ -1054,7 +1054,7 @@ Namespace LanguageModels
                         Public Sub New(ByRef Corpus As List(Of String))
 
                             iTrainedModel = New NgramFunctions.NgramTrainer(New NgramLanguageModel(2))
-                            iTrainedModel.TrainModel(Corpus)
+                            iTrainedModel = iTrainedModel.TrainModel(Corpus)
                         End Sub
 
                         Public ReadOnly Property TrainedModel As NgramFunctions.NgramTrainer

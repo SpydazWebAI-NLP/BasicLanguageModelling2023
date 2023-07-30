@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -66,6 +67,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LanguageModels\Extensions.vb" />
     <Compile Include="LanguageModels\LanguageModelling.vb" />
     <Compile Include="LanguageModels\LanguageModels.vb" />
     <Compile Include="LanguageModels\PremiseDetector.vb" />
