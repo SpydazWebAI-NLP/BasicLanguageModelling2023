@@ -13,6 +13,7 @@
             Console.ReadLine()
         End Sub
 
+
         Public Shared Function Tril(ByVal matrix(,) As Integer) As Integer(,)
             Dim rows As Integer = matrix.GetLength(0)
             Dim cols As Integer = matrix.GetLength(1)
