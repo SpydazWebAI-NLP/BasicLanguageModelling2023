@@ -1,5 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
-Imports LanguageModels.LanguageModels
+Imports LanguageModelling.LanguageModels
 
 Namespace Common_NLP_Tasks
 

@@ -1,7 +1,8 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Text
 Imports System.Text.RegularExpressions
-Imports LanguageModels.Recognition.Classifier.SentenceClassifier
+Imports LanguageModelling.Recognition.Classifier.SentenceClassifier
+
 Namespace Recognition
     Public Class RuleBasedEntityRecognizer
         Private Shared entityPatterns As Dictionary(Of String, String)

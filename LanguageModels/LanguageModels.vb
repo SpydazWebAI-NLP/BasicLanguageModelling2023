@@ -1,13 +1,13 @@
 ﻿Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Web.Script.Serialization
-Imports LanguageModels.Common_NLP_Tasks.LanguageModelling
-Imports LanguageModels.LanguageModels.BaseModels.LanguageModelFactory.Corpus.Document.Sentence
-Imports LanguageModels.LanguageModels.BaseModels.LanguageModelFactory.NgramModels
-Imports LanguageModels.LanguageModels.BaseModels.LanguageModelFactory.NgramModels.BaseModels
-Imports LanguageModels.LanguageModels.BaseModels.LanguageModelFactory.NgramModels.NgramFunctions
-Imports LanguageModels.LanguageModels.BaseModels.LanguageModelFactory.PredictiveLanguageModel
-Imports LanguageModels.NeuralNetworkFactory
+Imports LanguageModelling.Common_NLP_Tasks.LanguageModelling
+Imports LanguageModelling.LanguageModels.BaseModels.LanguageModelFactory.Corpus.Document.Sentence
+Imports LanguageModelling.LanguageModels.BaseModels.LanguageModelFactory.NgramModels
+Imports LanguageModelling.LanguageModels.BaseModels.LanguageModelFactory.NgramModels.BaseModels
+Imports LanguageModelling.LanguageModels.BaseModels.LanguageModelFactory.NgramModels.NgramFunctions
+Imports LanguageModelling.LanguageModels.BaseModels.LanguageModelFactory.PredictiveLanguageModel
+Imports LanguageModelling.NeuralNetworkFactory
 
 
 Namespace LanguageModels

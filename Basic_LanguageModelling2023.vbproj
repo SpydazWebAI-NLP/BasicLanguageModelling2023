@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FCFF1DFC-AB21-45FA-B700-9AFBDC5B11A8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>LanguageModels</RootNamespace>
+    <RootNamespace>LanguageModelling</RootNamespace>
     <AssemblyName>SpydazWebAI.LanguageModelling</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
