@@ -9,22 +9,17 @@ Imports LanguageModelling.LanguageModels.BaseModels.LanguageModelFactory.NgramMo
 Imports LanguageModelling.LanguageModels.BaseModels.LanguageModelFactory.PredictiveLanguageModel
 Imports LanguageModelling.NeuralNetworkFactory
 
-
 Namespace LanguageModels
 
     Namespace BaseModels
         Public Module Helper
+
             ' Latent Dirichlet Allocation (LDA) algorithm
             Public Class Latent_Dirichlet_Allocation
-
-
-
 
                 'Public Class Document
                 '    Public Property Words As List(Of Word)
                 'End Class
-
-
 
                 Public Class WordCount
                     Public Property WordCount As Dictionary(Of String, Integer)
@@ -57,6 +52,7 @@ Namespace LanguageModels
 
                         Return 0
                     End Function
+
                 End Class
 
                 Private documents As List(Of Clause)
@@ -181,6 +177,7 @@ Namespace LanguageModels
                         Console.WriteLine()
                     Next
                 End Sub
+
             End Class
 
             ''' <summary>
@@ -192,9 +189,11 @@ Namespace LanguageModels
                 Dim Converter As New JavaScriptSerializer
                 Return Converter.Serialize(iObject)
             End Function
+
         End Module
 
         Public Class LanguageModelFactory
+
             Public Class LangModelGenerator
                 Inherits NgramLanguageModel
 
@@ -285,7 +284,6 @@ Namespace LanguageModels
                     Return sentence.ToString()
                 End Function
 
-
                 Public Shared Function GenerateCodePredictor(ByRef TrainingSamples As List(Of String)) As NgramLanguageModel
                     Dim Model As New NgramLanguageModel(25)
                     Model.Train(TrainingSamples)
@@ -313,8 +311,11 @@ Namespace LanguageModels
                         Throw New ArgumentException("Invalid n-gram size: " & n)
                 End Select
             End Function
+
             Public Class NgramModels
+
                 Public Class BaseModels
+
                     Public Class BigramLanguageModel
                         Inherits NgramLanguageModel
                         Private bigramModel As Dictionary(Of String, Dictionary(Of String, Integer))
@@ -683,6 +684,7 @@ Namespace LanguageModels
                         End Function
 
                     End Class
+
                     Public Class TrigramLanguageModel
                         Inherits NgramLanguageModel
 
@@ -876,6 +878,7 @@ Namespace LanguageModels
                         End Function
 
                     End Class
+
                     Public Class UnigramModel
 
                         Inherits NgramLanguageModel
@@ -1030,6 +1033,7 @@ Namespace LanguageModels
                         End Function
 
                     End Class
+
                     '2. Add Language Modeling Functionality:
                     Public Class LanguageModel
 
@@ -1063,11 +1067,12 @@ Namespace LanguageModels
                             End Get
                         End Property
 
-
-
                     End Class
+
                 End Class
+
                 Public Class TestModels
+
                     Public Class CodeGenerator
                         Inherits NgramGenerator
 
@@ -1079,12 +1084,14 @@ Namespace LanguageModels
                             Public Code As String
                             Public Probability As Double
                         End Structure
+
                         Public Function PredictNextCode(tokens As List(Of String)) As String
                             Dim context As String = GetContext(tokens)
                             Dim nextToken As String = GetNextToken(context)
 
                             Return nextToken
                         End Function
+
                         Public Function PredictNextToken(Query As String) As String
                             ' Tokens representing the code context
                             Dim tokens As List(Of String) = getTokens(Query)
@@ -1096,6 +1103,7 @@ Namespace LanguageModels
                             Console.WriteLine("Predicted Next Token: " & predictedToken)
                             Return predictedToken
                         End Function
+
                         Public Function PredictNextCodeSegment(Code As List(Of String), ByRef numPredictions As Integer) As List(Of CodePrediction)
                             ' Predict the next code segment
                             ' Generate code predictions
@@ -1117,6 +1125,7 @@ Namespace LanguageModels
                             Next
                             Return predictions
                         End Function
+
                         Public Shared Function TrainModelCodePredictor(data As List(Of String), ngramLength As Integer) As NgramLanguageModel
                             Dim model As NgramLanguageModel = New NgramLanguageModel(ngramLength)
 
@@ -1153,10 +1162,9 @@ Namespace LanguageModels
                             Return model
                         End Function
 
-
                     End Class
-                    Public Class AttentionNgramLanguageModel
 
+                    Public Class AttentionNgramLanguageModel
 
                         Inherits NgramLanguageModel
 
@@ -1229,6 +1237,7 @@ Namespace LanguageModels
                     End Class
 
                 End Class
+
                 Public Class NgramLanguageModel
 
                     Public ngramEncodings As Dictionary(Of String, Integer)
@@ -1257,7 +1266,6 @@ Namespace LanguageModels
                         Dim tokens As String() = prediction.Split(" "c)
                         Dim probability As Double = 1.0
 
-
                         For i As Integer = 0 To tokens.Length - 2
                             Dim context As String = ngramModel.GetContext(tokens, i)
                             Dim nextToken As String = tokens(i + 1)
@@ -1282,7 +1290,6 @@ Namespace LanguageModels
 
                         Return probability
                     End Function
-
 
                     Public Sub AddDocument(doc As String)
                         Dim words As String() = PreprocessText(doc)
@@ -1436,7 +1443,6 @@ Namespace LanguageModels
                         Return String.Join(" ", tokens)
                     End Function
 
-
                     Public Function GetCount(ngram As String) As Integer
 
                         For Each item In ngramEncodings
@@ -1506,14 +1512,12 @@ Namespace LanguageModels
                         Return tokens
                     End Function
 
-
                     Public Function LookupNgram(ngram As String) As Integer
                         If ngramModel.ContainsKey(ngram) Then
                             Return ngramModel(ngram).Values.Sum()
                         End If
                         Return 0
                     End Function
-
 
                     Public Function PredictNextWord(currentNgram As String) As String
                         If ngramModel.ContainsKey(currentNgram) Then
@@ -1523,7 +1527,6 @@ Namespace LanguageModels
 
                         Return ""
                     End Function
-
 
                     Public Function PreprocessText(text As String) As String()
                         ' Preprocess the text by removing unnecessary characters and converting to lowercase
@@ -1591,7 +1594,6 @@ Namespace LanguageModels
                         Next
                     End Sub
 
-
                     Public Function UpdateNgram(oldNgram As String, newNgram As String) As Boolean
                         If ngramModel.ContainsKey(oldNgram) AndAlso Not ngramModel.ContainsKey(newNgram) Then
                             ' Update ngramModel
@@ -1640,17 +1642,13 @@ Namespace LanguageModels
                         End If
                     End Sub
 
-
-
-
-
-
-
                 End Class
 
                 Public Class NgramFunctions
+
                     Public Class NgramTrainer
                         Inherits NgramLanguageModel
+
                         ''' <summary>
                         ''' PlaceHolder ... this model is not to be used as a model
                         ''' </summary>
@@ -1663,6 +1661,7 @@ Namespace LanguageModels
 
                             Me.ngramSize = model.ngramSize
                         End Sub
+
                         Public Sub TrainHigherOrder(corpus As List(Of String))
                             Train(corpus)
 
@@ -1770,10 +1769,11 @@ Namespace LanguageModels
                             Return model
                         End Function
 
-
                     End Class
+
                     Public Class NgramGenerator
                         Inherits NgramLanguageModel
+
                         ''' <summary>
                         ''' PlaceHolder ... this model is not to be used as a model
                         ''' </summary>
@@ -1869,6 +1869,7 @@ Namespace LanguageModels
 
                             Return sentence.ToString()
                         End Function
+
                         Public Function PredictSentence(sentence As String) As String
                             Dim words As String() = sentence.Split()
                             Dim predictedSentence As New StringBuilder(String.Join(" ", words))
@@ -1885,14 +1886,14 @@ Namespace LanguageModels
                             Return predictedSentence.ToString()
                         End Function
 
-
-
                     End Class
+
                     Public Class NGramScorer
                         Inherits NgramLanguageModel
+
                         ''' <summary>
                         ''' PlaceHolder ... this model is not to be used as a model
-                        ''' A response can be generated by adding new sets of response which can be scored, 
+                        ''' A response can be generated by adding new sets of response which can be scored,
                         ''' the highest response is selected
                         ''' </summary>
                         Public Sub New(ByRef model As NgramLanguageModel)
@@ -1904,9 +1905,10 @@ Namespace LanguageModels
 
                             Me.ngramSize = model.ngramSize
                         End Sub
+
                         ''' <summary>
                         ''' Response (lang model(highest score))
-                        ''' Loads model For response scoring , 
+                        ''' Loads model For response scoring ,
                         ''' trains model on current responses
                         ''' </summary>
                         ''' <param name="responses"></param>
@@ -1931,6 +1933,7 @@ Namespace LanguageModels
 
                             Me.ngramSize = trainer.ngramSize
                         End Sub
+
                         Public ReadOnly Property Model As NgramLanguageModel
                             Get
                                 Return Me
@@ -1938,7 +1941,7 @@ Namespace LanguageModels
                         End Property
 
                         ''' <summary>
-                        ''' Loads model For response scoring , 
+                        ''' Loads model For response scoring ,
                         ''' trains model on current responses, Also past responses
                         ''' </summary>
                         ''' <param name="responses"></param>
@@ -1961,7 +1964,6 @@ Namespace LanguageModels
 
                             Me.ngramModel = trainer.ngramModel
 
-
                         End Sub
 
                         Public Function GenerateResponse(question As String) As String
@@ -1982,28 +1984,22 @@ Namespace LanguageModels
                             End If
                         End Function
 
-
-
                     End Class
+
                 End Class
+
             End Class
+
             ''' <summary>
             ''' Corpus Language Model
-            ''' Used to HoldDocuments : a corpus of documents Calculating detecting the 
-            ''' known entitys and topics in the model; 
+            ''' Used to HoldDocuments : a corpus of documents Calculating detecting the
+            ''' known entitys and topics in the model;
             ''' A known list of Entitys and Topics are required to create this model
             ''' This language model is ideally suited for NER / and other corpus interogations
-            ''' 
-            ''' </summary>
-            ''' <summary>
-            ''' Corpus Language Model
-            ''' Used to HoldDocuments : a corpus of documents Calculating detecting the 
-            ''' known entitys and topics in the model; 
-            ''' A known list of Entitys and Topics are required to create this model
-            ''' This language model is ideally suited for NER / and other corpus interogations
-            ''' 
+            '''
             ''' </summary>
             Public Class Corpus
+
                 ''' <summary>
                 ''' Serializes object to json
                 ''' </summary>
@@ -2012,6 +2008,7 @@ Namespace LanguageModels
                     Dim Converter As New JavaScriptSerializer
                     Return Converter.Serialize(Me)
                 End Function
+
                 ''' <summary>
                 ''' Used to create NewCorpus - With Or Without a Recognition template
                 ''' </summary>
@@ -2571,11 +2568,13 @@ Namespace LanguageModels
                     End Structure
 
                 End Structure
+
                 Public Structure Entity
                     Public Property EndIndex As Integer
                     Public Property StartIndex As Integer
                     Public Property Type As String
                     Public Property Value As String
+
                     Public Shared Function DetectEntitys(ByRef text As String, EntityList As List(Of Entity)) As List(Of Entity)
                         Dim detectedEntitys As New List(Of Entity)()
 
@@ -2588,7 +2587,9 @@ Namespace LanguageModels
 
                         Return detectedEntitys
                     End Function
+
                 End Structure
+
                 ''' <summary>
                 ''' NER Data held(known) by the corpus
                 ''' </summary>
@@ -2777,6 +2778,7 @@ Namespace LanguageModels
                         Current = New List(Of VocabularyEntry)
                         Docs = New List(Of String)
                     End Sub
+
                     Public Function GetVocab() As List(Of String)
                         Dim lst As New List(Of String)
                         For Each item In Current
@@ -2784,12 +2786,13 @@ Namespace LanguageModels
                         Next
                         Return lst
                     End Function
+
                     ''' <summary>
                     ''' Used to add Words or update a word in the vocabulary language model
                     ''' </summary>
                     ''' <param name="Term"></param>
-                    ''' <param name="Docs">Current Collection of Corpus Documents(Updated) - 
-                    ''' This is used when adding a new document and its terms - 
+                    ''' <param name="Docs">Current Collection of Corpus Documents(Updated) -
+                    ''' This is used when adding a new document and its terms -
                     ''' the documents are not processed only the terms added the documents are just a record,
                     ''' enabling for other calculations to take place internally</param>
                     Public Sub AddNew(ByRef Term As String, ByRef Docs As List(Of String))
@@ -2800,6 +2803,7 @@ Namespace LanguageModels
                       CalcTF_IDF(Term)))
 
                     End Sub
+
                     ''' <summary>
                     ''' Used to add Words or update a word in the vocabulary language model
                     ''' </summary>
@@ -2813,6 +2817,7 @@ Namespace LanguageModels
                       CalcTF_IDF(Term)))
 
                     End Sub
+
                     Private Function CalcFrequency(ByRef Word As String) As Double
                         ' Calculate frequency of term in the corpus (current)
                         Dim count As Integer = 0
@@ -3272,56 +3277,61 @@ Namespace LanguageModels
             End Class
 
             ''' <summary>
-            ''' A Data object used to hold 
+            ''' A Data object used to hold
             ''' specific information about a document or corpus.
-            ''' Information is contained in the entry's of the Entry's. 
-            ''' Therefore the vocabulary can function as a single object of 
-            ''' information by also by using its presence in a document or 
-            ''' not as a contextual element such as to detect a topic 
-            ''' if it is found to be present it may signify that 
-            ''' this topic is indeed present. for other methodology s; 
-            ''' It could also denote a sentiment there fore a document 
-            ''' could have a collection of vocabulary items as contextual indicators. 
+            ''' Information is contained in the entry's of the Entry's.
+            ''' Therefore the vocabulary can function as a single object of
+            ''' information by also by using its presence in a document or
+            ''' not as a contextual element such as to detect a topic
+            ''' if it is found to be present it may signify that
+            ''' this topic is indeed present. for other methodology s;
+            ''' It could also denote a sentiment there fore a document
+            ''' could have a collection of vocabulary items as contextual indicators.
             ''' by summing thier presence (one hot encoding) (Scoring)
             ''' this has (simple Bag of words) and (Complex(ORganized) Bag of Words) usage
             ''' </summary>
             Public Class BagOfWords
 
-
                 ''' <summary>
-                ''' A vocabulary is a bag of words model ; 
-                ''' Containing the unique words in a 
-                ''' document or corpus of documents 
-                ''' As a populated object is can become a 
+                ''' A vocabulary is a bag of words model ;
+                ''' Containing the unique words in a
+                ''' document or corpus of documents
+                ''' As a populated object is can become a
                 ''' data object providing a single dimension of context
                 ''' </summary>
                 Public Sub New()
                     CurrentVocabulary = New List(Of VocabularyEntry)
                 End Sub
+
                 ''' <summary>
                 ''' Used to add context awareness for Document
                 ''' </summary>
                 Public Structure VocabularyContext
+
                     ''' <summary>
                     ''' Used to encode the Entrys with a context Awareness
                     ''' Holds versions of the current corpus vocabulary with context elements
                     ''' Which can be used to score the relevance of the document
-                    ''' if a word in the vocabulary is 
-                    ''' present the number of vocabulary terms which are present 
+                    ''' if a word in the vocabulary is
+                    ''' present the number of vocabulary terms which are present
                     ''' can be used to score the relevance of this document
-                    ''' providing a unique score especially when combined with other 
+                    ''' providing a unique score especially when combined with other
                     ''' encoding elements
                     ''' </summary>
                     Public Context As List(Of BagOfWords)
+
                     ''' <summary>
                     ''' Ie, Sentiment, Emotion, Entity, Topic, Intent , etc
                     ''' </summary>
                     Public ContextType As String
+
                     ''' <summary>
                     ''' Score of (sum of boolean true for terms in vocabulary present)
                     ''' </summary>
                     Public Score As Integer
+
                 End Structure
+
                 Public Enum VocabularyType
                     Character
                     Word
@@ -3330,8 +3340,6 @@ Namespace LanguageModels
 
                 Public Property CurrentVocabulary As List(Of VocabularyEntry)
                 Public Property Type As VocabularyType
-
-
 
                 ' Enhanced vocabulary management: AddNewEntry function
                 Public Shared Function AddNewEntry(ByRef Vocab As List(Of VocabularyEntry), ByVal Text As String) As List(Of VocabularyEntry)
@@ -3481,7 +3489,6 @@ Namespace LanguageModels
                     Next
                     Console.WriteLine(str)
 
-
                     'Encode InputText
                     Dim InputText As String = "Hello World."
 
@@ -3498,7 +3505,7 @@ Namespace LanguageModels
                     str &= "] "
                     Console.WriteLine(str)
                     Console.WriteLine(vbNewLine)
-                    'get inputs 
+                    'get inputs
                     InputLayer.blocksize = 4
                     InputLayer.Inputblocks = InputTextRecord.GetBlocks(InputLayer.Encoding, InputLayer.blocksize)
                     Console.WriteLine("Input BlockSize: " & InputLayer.blocksize)
@@ -3560,8 +3567,8 @@ Namespace LanguageModels
                     Console.WriteLine()
                     Console.ReadLine()
 
-
                 End Sub
+
                 Public Shared Function ConvertToMatrix(inputBlocks As List(Of List(Of Integer))) As Integer(,)
                     Dim numRows As Integer = inputBlocks.Count
                     Dim numColumns As Integer = inputBlocks(0).Count
@@ -3576,6 +3583,7 @@ Namespace LanguageModels
 
                     Return matrix
                 End Function
+
                 Public Shared Function ConvertToMatrix(inputBlocks As List(Of List(Of Integer)), targetBlocks As List(Of List(Of Integer))) As Integer(,)
                     Dim numRows As Integer = Math.Max(inputBlocks.Count, targetBlocks.Count)
                     Dim numColumns As Integer = Math.Max(GetMaxListSize(inputBlocks), GetMaxListSize(targetBlocks))
@@ -3604,6 +3612,7 @@ Namespace LanguageModels
                     Next
                     Return maxSize
                 End Function
+
                 Public Sub UpdateVocabulary(ByRef Text As String)
                     CurrentVocabulary = Encode.AddNewEncoding(Text, CurrentVocabulary)
                 End Sub
@@ -3638,6 +3647,7 @@ Namespace LanguageModels
                     Public Inputblocks As List(Of List(Of Integer))
                     Public Targetblocks As List(Of List(Of Integer))
                     Public Text As String
+
                     Public Shared Function GetBlocks(ByRef Embedding As List(Of Integer), ByRef Size As Integer, Optional Ofset As Integer = 0) As List(Of List(Of Integer))
                         Dim pos As Integer = 0
                         Dim newPos As Integer = Size
@@ -3657,8 +3667,6 @@ Namespace LanguageModels
                                     block.Add(Embedding(i))
                                 End If
 
-
-
                             Next
                             blocks.Add(block)
                             block = New List(Of Integer)
@@ -3674,6 +3682,7 @@ Namespace LanguageModels
 
                         Return blocks
                     End Function
+
                     Public Shared Function GetTargetBlocks(ByRef Embedding As List(Of Integer), ByRef Size As Integer) As List(Of List(Of Integer))
                         Dim pos As Integer = 0
                         Dim newPos As Integer = Size
@@ -3697,11 +3706,13 @@ Namespace LanguageModels
 
                         Return blocks
                     End Function
+
                 End Structure
 
                 Public Structure VocabularyEntry
                     Public Encoding As Integer
                     Public Frequency As Integer
+
                     ''' <summary>
                     ''' Dimensions of the model(used to calculate dimesional positioning)
                     ''' </summary>
@@ -3709,16 +3720,19 @@ Namespace LanguageModels
 
                     Public Text As String
                     Private iDocumentPresence As Boolean
+
                     Public ReadOnly Property IsPresentInDocument As Boolean
                         Get
                             Return iDocumentPresence
                         End Get
                     End Property
+
                     Public ReadOnly Property PositionalEncoding As Double()
                         Get
                             Return CalcPositionalEncoding(Model_Dimensions)
                         End Get
                     End Property
+
                     Public Shared Function CalcPositionalEncoding(ByVal position As Integer, ByVal d_model As Integer) As Double()
                         ' Create an empty array to store the encoding
                         Dim encoding(d_model - 1) As Double
@@ -3763,8 +3777,8 @@ Namespace LanguageModels
                     End Function
 
                     ''' <summary>
-                    ''' Used to set a binary encoding for document presence 
-                    ''' Given the vocabulary for the 
+                    ''' Used to set a binary encoding for document presence
+                    ''' Given the vocabulary for the
                     ''' Document the vocabulary is returned updated as not present
                     ''' </summary>
                     ''' <param name="Vocab"></param>
@@ -3779,7 +3793,7 @@ Namespace LanguageModels
                     End Function
 
                     ''' <summary>
-                    ''' Usde to set binary encoding based on this 
+                    ''' Usde to set binary encoding based on this
                     ''' entrys presence in the document given the current documents vocabulary
                     ''' </summary>
                     ''' <param name="Vocab"></param>
@@ -3794,7 +3808,7 @@ Namespace LanguageModels
                     End Function
 
                     ''' <summary>
-                    ''' Updates this items frequency in the Lang Model 
+                    ''' Updates this items frequency in the Lang Model
                     ''' </summary>
                     ''' <param name="Vocab">Lang Model</param>
                     ''' <returns>updated Lang model</returns>
@@ -3823,8 +3837,11 @@ Namespace LanguageModels
                         ' Return the encoding array
                         Return encoding
                     End Function
+
                 End Structure
+
                 Public Class Decode
+
                     Public Shared Function DecodeInteger(ByRef Lookup As Integer, ByRef Vocabulary As List(Of VocabularyEntry))
                         For Each item In Vocabulary
                             If item.Encoding = Lookup Then
@@ -3833,6 +3850,7 @@ Namespace LanguageModels
                         Next
                         Return "Not found in vocabulary"
                     End Function
+
                     Public Shared Function DecodeText(ByRef Lookup As String, ByRef Vocabulary As List(Of VocabularyEntry))
                         For Each item In Vocabulary
                             If item.Text = Lookup Then
@@ -3841,9 +3859,11 @@ Namespace LanguageModels
                         Next
                         Return "Not found in vocabulary"
                     End Function
+
                 End Class
 
                 Public Class Encode
+
                     Public Shared Function AddNewEncoding(ByRef Word As String, ByRef Vocab As List(Of VocabularyEntry)) As List(Of VocabularyEntry)
                         Dim NewVocab As New List(Of VocabularyEntry)
                         If CheckVocabulary(Word, Vocab) = False Then
@@ -3897,6 +3917,7 @@ Namespace LanguageModels
                         End Select
                         Return iOutput
                     End Function
+
                     Public Shared Function EncodeChars(VocabList As List(Of String)) As List(Of VocabularyEntry)
                         Dim vocabulary As New List(Of VocabularyEntry)
                         Dim EncodingValue As Integer = 1
@@ -3909,6 +3930,7 @@ Namespace LanguageModels
                         Next
                         Return vocabulary
                     End Function
+
                     Public Shared Function EncodeWords(VocabList As List(Of String)) As List(Of VocabularyEntry)
                         Dim vocabulary As New List(Of VocabularyEntry)
                         Dim EncodingValue As Integer = 1
@@ -3921,30 +3943,37 @@ Namespace LanguageModels
                         Next
                         Return vocabulary
                     End Function
+
                 End Class
+
             End Class
 
             ''' <summary>
-            ''' An Encoded Language model , 
+            ''' An Encoded Language model ,
             ''' With an internal vocabulary for Basic Encoding/Decoding
             ''' </summary>
             Public Class iLangModel
                 Private LanguageModel As BaseModels.LanguageModelFactory.NgramModels.NgramLanguageModel
                 Private Attend As FeedForwardNetwork
                 Private csize As Integer
+
                 Public Structure Vocabulary
                     Private iValues As List(Of Token)
+
                     Public ReadOnly Property Values As List(Of Token)
                         Get
                             Return iValues
                         End Get
                     End Property
+
                     Public Structure Token
                         Public Text
                         Public Vocabulary_ID As Integer
                         Public Encoding As Integer
                     End Structure
+
                     Private iVocabList As List(Of String)
+
                     Public ReadOnly Property VocabList As List(Of String)
                         Get
                             Return iVocabList
@@ -3962,6 +3991,7 @@ Namespace LanguageModels
                             Return False
                         End If
                     End Function
+
                     Public Function ADD_NEW(ByRef Token As String, Encoding As Integer) As Boolean
                         If CheckExists(Token) = False Then
                             Dim NewTok As New Token
@@ -3974,21 +4004,26 @@ Namespace LanguageModels
                             Return False
                         End If
                     End Function
+
                     Public Function LOOKUP(ByRef Query As Integer) As String
 
                         If CheckExists(Query) = True Then Return VocabList(Query)
 
-
                         Return "Not Found"
                     End Function
+
                     Public Function CheckExists(ByRef Query As String) As Boolean
                         Return VocabList.Contains(Query)
                     End Function
+
                     Private Function CheckExists(ByRef Query As Integer) As Boolean
                         Return VocabList.Count < Query
                     End Function
+
                 End Structure
+
                 Private iVocabulary As Vocabulary
+
                 Public ReadOnly Property EncodingVocabulary As Vocabulary
                     Get
                         Return iVocabulary
@@ -4005,6 +4040,7 @@ Namespace LanguageModels
                     Attend = New FeedForwardNetwork(csize, 8, 1)
 
                 End Sub
+
                 ''' <summary>
                 ''' Can be set with a known vocabulary
                 ''' </summary>
@@ -4012,15 +4048,15 @@ Namespace LanguageModels
                 Public Sub New(iVocabulary As Vocabulary)
                     Me.iVocabulary = iVocabulary
                 End Sub
+
                 ''' <summary>
-                ''' This input is encoded as a single value, 
-                ''' So Char by Char , Word by Word , 
+                ''' This input is encoded as a single value,
+                ''' So Char by Char , Word by Word ,
                 ''' Sent by Sent is decided outside the object
                 ''' </summary>
                 ''' <param name="uInputWord"></param>
                 ''' <returns></returns>
                 Public Function EncodeInput(ByRef uInputWord As String) As Integer
-
 
                     If EncodingVocabulary.CheckExists(uInputWord) = False Then
                         LanguageModel.AddDocument(uInputWord)
@@ -4031,26 +4067,31 @@ Namespace LanguageModels
                     End If
 
                 End Function
+
                 ''' <summary>
-                ''' look up the value of the token provided 
+                ''' look up the value of the token provided
                 ''' </summary>
                 ''' <param name="Query"></param>
                 ''' <returns></returns>
                 Public Function DecodeInput(ByRef Query As Integer) As String
                     Return iVocabulary.LOOKUP(Query)
                 End Function
+
                 Public Function forward(inputSequence As List(Of List(Of Double))) As List(Of List(Of Double))
                     'Here we want to see what the output is without positional encoding
                     Return ApplyFeedForwardNN(ApplyMuliHeadedAttention(inputSequence, 3, inputSequence.Count))
                 End Function
+
                 Public Sub Train(inputs As List(Of List(Of Double)), targets As List(Of List(Of Double)), epochs As Integer, learningRate As Double)
                     csize = inputs.ElementAt(0).Count
                     Attend.Train(ApplyMuliHeadedAttention(inputs, 3, inputs.Count), targets, epochs, learningRate)
                 End Sub
+
                 Public Function ApplyMuliHeadedAttention(inputSequence As List(Of List(Of Double)), numHeads As Integer, headSize As Integer, Optional Masked As Boolean = False) As List(Of List(Of Double))
                     Dim Attend As New MultiHeadedAttention(numHeads, headSize)
                     Return Attend.Forward(inputSequence, Masked)
                 End Function
+
                 Public Function PredictNext_LangModel(ByRef Userinput As String) As String
                     'Add Dynamic to corpus
                     Dim words = Split(Userinput, " ").ToList
@@ -4062,6 +4103,7 @@ Namespace LanguageModels
                     'Return Prediction Word Or Sentence?
                     Return LanguageModel.PredictNextWord(Userinput)
                 End Function
+
                 Public Function PredictNext_Transformer(ByRef Userinput As String) As String
                     EncodeInput(Userinput)
                     Dim words = Split(Userinput, " ").ToList
@@ -4072,7 +4114,7 @@ Namespace LanguageModels
                     Dim Ouput = ApplyFeedForwardNN(ApplyMuliHeadedAttention(InputSequence, 3, InputSequence.Count))
                     'decode Positions
                     Dim decoder As New PositionalDecoder(8, 8, iVocabulary.VocabList)
-                    'Build Decoded Output 
+                    'Build Decoded Output
                     Dim str As String = ""
                     For Each item In decoder.Decode(Ouput)
                         str &= item & " "
@@ -4080,12 +4122,14 @@ Namespace LanguageModels
                     Return str
 
                 End Function
+
                 Public Function ApplyFeedForwardNN(inputSequence As List(Of List(Of Double))) As List(Of List(Of Double))
 
                     csize = inputSequence.ElementAt(0).Count
 
                     Return Attend.Forward(inputSequence)
                 End Function
+
                 Public Shared Function FlattenList(lst As List(Of List(Of Double))) As List(Of Integer)
                     Dim iFlat As New List(Of Integer)
                     For Each i In lst
@@ -4095,6 +4139,7 @@ Namespace LanguageModels
                     Next
                     Return iFlat
                 End Function
+
                 Private Class MultiHeadedAttention
                     Private Shared irand As Random = New Random()
                     Private ReadOnly headSize As Integer
@@ -4106,10 +4151,12 @@ Namespace LanguageModels
                         Randomize()
 
                     End Sub
+
                     Private Shared Function GetRandomWeight() As Double
 
                         Return irand.NextDouble()
                     End Function
+
                     Private Shared Function InitializeWeights(rows As Integer, cols As Integer) As List(Of List(Of Double))
                         Dim weights As List(Of List(Of Double)) = New List(Of List(Of Double))
                         irand.NextDouble()
@@ -4153,6 +4200,7 @@ Namespace LanguageModels
 
                         Return attendedFeatures
                     End Function
+
                     Private Function iAttention(query As List(Of List(Of Double)), key As List(Of List(Of Double)), value As List(Of List(Of Double))) As List(Of List(Of Double))
                         Dim attendedFeatures As List(Of List(Of Double)) = New List(Of List(Of Double))
 
@@ -4174,6 +4222,7 @@ Namespace LanguageModels
 
                         Return attendedFeatures
                     End Function
+
                     Public Function LinearTransformation(inputSequence As List(Of List(Of Double))) As List(Of List(Of Double))
                         Dim transformedSequence As List(Of List(Of Double)) = New List(Of List(Of Double))
                         irand.NextDouble()
@@ -4197,6 +4246,7 @@ Namespace LanguageModels
 
                         Return transformedSequence
                     End Function
+
                     Public Function SplitByHead(inputSequence As List(Of List(Of Double)), numHeads As Integer) As List(Of List(Of List(Of Double)))
                         Dim splitInput As List(Of List(Of List(Of Double))) = New List(Of List(Of List(Of Double)))(numHeads)
 
@@ -4213,6 +4263,7 @@ Namespace LanguageModels
 
                         Return splitInput
                     End Function
+
                     Public Function ConcatenateHeads(headOutputs As List(Of List(Of List(Of Double)))) As List(Of List(Of Double))
                         Dim concatenatedOutput As List(Of List(Of Double)) = New List(Of List(Of Double))()
 
@@ -4228,6 +4279,7 @@ Namespace LanguageModels
 
                         Return concatenatedOutput
                     End Function
+
                     Public Function Transform(query As List(Of List(Of Double)), key As List(Of List(Of Double)), value As List(Of List(Of Double)), Optional useMaskedAttention As Boolean = False) As List(Of List(Of Double))
                         ' Split the query, key, and value into multiple heads
                         Dim splitQuery = SplitByHead(query, numHeads)
@@ -4260,7 +4312,6 @@ Namespace LanguageModels
                         Return output
                     End Function
 
-
                     Public Function Attention(inputSequence As List(Of List(Of Double)), inputVector As List(Of Double)) As List(Of Double)
                         Dim weightedValues As List(Of Double) = New List(Of Double)()
 
@@ -4276,6 +4327,7 @@ Namespace LanguageModels
 
                         Return weightedValues
                     End Function
+
                     Public Function MaskedAttention(inputSequence As List(Of List(Of Double)), inputVector As List(Of Double)) As List(Of Double)
                         Dim weightedValues As List(Of Double) = New List(Of Double)
 
@@ -4296,6 +4348,7 @@ Namespace LanguageModels
 
                         Return weightedValues
                     End Function
+
                     Public Function Forward(inputSequence As List(Of List(Of Double)), Optional useMaskedAttention As Boolean = False) As List(Of List(Of Double))
                         Dim attendedFeatures As List(Of List(Of Double)) = New List(Of List(Of Double))()
 
@@ -4313,15 +4366,16 @@ Namespace LanguageModels
                         Return attendedFeatures
                     End Function
 
-
-
                 End Class
+
                 Private Class FeedForwardNetwork
+
                     Public Enum Activation
                         ReLU
                         Sigmoid
                         Tanh
                     End Enum
+
                     Private ReadOnly hiddenSize As Integer
                     Private ReadOnly hiddenWeights As List(Of List(Of Double))
                     Private ReadOnly inputSize As Integer
@@ -4333,6 +4387,7 @@ Namespace LanguageModels
                     Private rand As Random = New Random()
                     Private outputGradients As List(Of List(Of Double))
                     Private hiddenGradients As List(Of List(Of Double))
+
                     Public Sub New(inputSize As Integer, hiddenSize As Integer, outputSize As Integer)
                         Me.inputSize = inputSize
                         Me.hiddenSize = hiddenSize
@@ -4350,7 +4405,6 @@ Namespace LanguageModels
                         outputGradients = New List(Of List(Of Double))
                         hiddenGradients = New List(Of List(Of Double))
                     End Sub
-
 
                     ''' <summary>
                     ''' Trains the feed-forward neural network using gradient descent optimization.
@@ -4388,6 +4442,7 @@ Namespace LanguageModels
                             Console.WriteLine("Epoch {0}: Average Loss = {1}", epoch, averageLoss)
                         Next
                     End Sub
+
                     ''' <summary>
                     ''' Computes the loss between the predicted output and the target output.
                     ''' </summary>
@@ -4435,6 +4490,7 @@ Namespace LanguageModels
                         outputGradients.Add(outputDelta)
                         hiddenGradients.Add(hiddenDelta)
                     End Sub
+
                     ''' <summary>
                     ''' Computes the weighted sum of the inputs using the specified weights and index.
                     ''' </summary>
@@ -4490,6 +4546,7 @@ Namespace LanguageModels
                         Dim output As Double = HiddenActivation(sum)
                         Return output * (1 - output)
                     End Function
+
                     ''' <summary>
                     ''' Applies the activation function to the hidden layer outputs.
                     ''' </summary>
@@ -4499,6 +4556,7 @@ Namespace LanguageModels
                         ' Use the sigmoid function as the activation function for the hidden layer
                         Return 1.0 / (1.0 + Math.Exp(-input))
                     End Function
+
                     ''' <summary>
                     ''' Applies the activation function to the output layer outputs.
                     ''' </summary>
@@ -4545,6 +4603,7 @@ Namespace LanguageModels
 
                         Return network
                     End Function
+
                     Public Shared Sub Main()
                         ' Create an instance of the FeedForwardNetwork
                         Dim feedForwardNN As FeedForwardNetwork = TrainTest()
@@ -4697,9 +4756,11 @@ Namespace LanguageModels
 
                             Return normalizedOutputs
                         End Function
+
                     End Class
 
                 End Class
+
                 Private Class NgramLanguageModel
 
                     Public ngramEncodings As Dictionary(Of String, Integer)
@@ -4728,7 +4789,6 @@ Namespace LanguageModels
                         Dim tokens As String() = prediction.Split(" "c)
                         Dim probability As Double = 1.0
 
-
                         For i As Integer = 0 To tokens.Length - 2
                             Dim context As String = ngramModel.GetContext(tokens, i)
                             Dim nextToken As String = tokens(i + 1)
@@ -4753,7 +4813,6 @@ Namespace LanguageModels
 
                         Return probability
                     End Function
-
 
                     Public Sub AddDocument(doc As String)
                         Dim words As String() = PreprocessText(doc)
@@ -4907,7 +4966,6 @@ Namespace LanguageModels
                         Return String.Join(" ", tokens)
                     End Function
 
-
                     Public Function GetCount(ngram As String) As Integer
 
                         For Each item In ngramEncodings
@@ -4977,14 +5035,12 @@ Namespace LanguageModels
                         Return tokens
                     End Function
 
-
                     Public Function LookupNgram(ngram As String) As Integer
                         If ngramModel.ContainsKey(ngram) Then
                             Return ngramModel(ngram).Values.Sum()
                         End If
                         Return 0
                     End Function
-
 
                     Public Function PredictNextWord(currentNgram As String) As String
                         If ngramModel.ContainsKey(currentNgram) Then
@@ -4994,7 +5050,6 @@ Namespace LanguageModels
 
                         Return ""
                     End Function
-
 
                     Public Function PreprocessText(text As String) As String()
                         ' Preprocess the text by removing unnecessary characters and converting to lowercase
@@ -5062,7 +5117,6 @@ Namespace LanguageModels
                         Next
                     End Sub
 
-
                     Public Function UpdateNgram(oldNgram As String, newNgram As String) As Boolean
                         If ngramModel.ContainsKey(oldNgram) AndAlso Not ngramModel.ContainsKey(newNgram) Then
                             ' Update ngramModel
@@ -5110,15 +5164,19 @@ Namespace LanguageModels
                             ngramCounts.Add(nextToken, 1)
                         End If
                     End Sub
+
                 End Class
+
                 Public Class PositionalDecoder
+
                     ''' <summary>
-                    ''' Only a list of the vocabulary words (to create an index) 
+                    ''' Only a list of the vocabulary words (to create an index)
                     ''' this should be the same list used to encode (Must be Set)
                     ''' </summary>
                     Public Vocabulary As New List(Of String)
 
                     Private ReadOnly decodingMatrix As List(Of List(Of Double))
+
                     Public Sub New(maxLength As Integer, embeddingSize As Integer, ByRef vocab As List(Of String))
                         decodingMatrix = New List(Of List(Of Double))()
                         Vocabulary = vocab
@@ -5135,6 +5193,7 @@ Namespace LanguageModels
                             decodingMatrix.Add(decodingRow)
                         Next
                     End Sub
+
                     Public Function Decode(encodedInputs As List(Of List(Of Double))) As List(Of String)
                         Dim decodedTokens As List(Of String) = New List(Of String)()
 
@@ -5153,6 +5212,7 @@ Namespace LanguageModels
 
                         Return decodedTokens
                     End Function
+
                     Public Function iDecode(encodedInputs As List(Of List(Of Double))) As List(Of String)
                         Dim decodedTokens As List(Of String) = New List(Of String)()
 
@@ -5197,15 +5257,19 @@ Namespace LanguageModels
 
                         Return -1 ' Token not found
                     End Function
+
                     Private Function GetVocabulary() As List(Of String)
                         ' Return the vocabulary list
                         ' Modify this function as per your specific vocabulary
                         Return Vocabulary
                     End Function
+
                 End Class
+
                 Public Class PositionalEncoding
                     Private ReadOnly encodingMatrix As List(Of List(Of Double))
                     Private Vocabulary As New List(Of String)
+
                     Public Sub New(maxLength As Integer, embeddingSize As Integer, ByRef vocab As List(Of String))
                         encodingMatrix = New List(Of List(Of Double))
                         Vocabulary = vocab
@@ -5261,6 +5325,7 @@ Namespace LanguageModels
 
                         Return encodedInputs
                     End Function
+
                     Private Function GetTokenIndex(token As String) As Integer
                         ' Retrieve the index of the token in the vocabulary
                         ' For simplicity, let's assume a fixed vocabulary
@@ -5273,26 +5338,32 @@ Namespace LanguageModels
                         ' Modify this function as per your specific vocabulary
                         Return Vocabulary
                     End Function
+
                 End Class
+
             End Class
+
             Public Class PredictiveLanguageModel
                 Public ReadOnly Model As NgramLanguageModel
                 Private Vocab As Corpus.Vocabulary
+
                 'A Local Vocab List is held For references
                 Public ReadOnly VocabList As List(Of String) = Vocab.GetVocab
+
                 Private EncoderDecoder As EncodeDecoder
                 Public ReadOnly Dmodel As Integer
+
                 ''' <summary>
                 ''' Context Value
                 ''' </summary>
                 Public ReadOnly MaxLength As Integer
 
                 ''' <summary>
-                ''' 
+                '''
                 ''' </summary>
-                ''' <param name="MaxLength">Length of Potential Content input: 
+                ''' <param name="MaxLength">Length of Potential Content input:
                 ''' For Code Generation projects A larger Context size may be desired
-                ''' For Next Word Prediction  -  Bigram - Ngram model is enough. 
+                ''' For Next Word Prediction  -  Bigram - Ngram model is enough.
                 ''' Tasked based decision</param>
                 Public Sub New(ByRef MaxLength As Integer, ByRef Dmodel As Integer)
 
@@ -5302,8 +5373,8 @@ Namespace LanguageModels
                     EncoderDecoder = New EncodeDecoder(Model, Dmodel, Vocab)
                     MaxLength = MaxLength
 
-
                 End Sub
+
                 Public Sub New(ByRef Pretrained As PredictiveLanguageModel)
                     Me.Model = Pretrained.Model
                     Me.Vocab = Vocab
@@ -5311,9 +5382,11 @@ Namespace LanguageModels
                     Me.Dmodel = Pretrained.Dmodel
                     Me.MaxLength = Pretrained.MaxLength
                 End Sub
+
                 Public Function ExportModel() As PredictiveLanguageModel
                     Return Me
                 End Function
+
                 ''' <summary>
                 ''' This adds a token to the Language model
                 ''' </summary>
@@ -5322,6 +5395,7 @@ Namespace LanguageModels
                     Model.AddNgram(Term)
                     Vocab.AddNew(Term)
                 End Sub
+
                 ''' <summary>
                 ''' Returns Input Vector For sentence
                 ''' </summary>
@@ -5331,6 +5405,7 @@ Namespace LanguageModels
 
                     Return GET_Vocab_IDs(Query)
                 End Function
+
                 ''' <summary>
                 ''' Create Training Blocks and Targets
                 ''' </summary>
@@ -5351,6 +5426,7 @@ Namespace LanguageModels
 
                     Return InputLayer
                 End Function
+
                 Private Function GET_Vocab_IDs(ByRef Query As String) As List(Of Integer)
                     Dim Toks = Tokenizer.TokenizeByWord(Query)
                     Dim Str As New List(Of Integer)
@@ -5359,43 +5435,53 @@ Namespace LanguageModels
                     Next
                     Return Str
                 End Function
+
                 Private Class EncodeDecoder
                     Private EmbeddingEncoder As PositionalEncoderDecoder
                     Private Model As NgramLanguageModel
                     Private Vocab As Corpus.Vocabulary
+
                     'A Local Vocab List is held For references
                     Private VocabList As List(Of String) = Vocab.GetVocab
+
                     Public Sub New(ByRef Model As NgramLanguageModel, ByRef D_model As Integer, ByRef Vocab As Corpus.Vocabulary)
                         Me.Model = Model
                         Me.Vocab = Vocab
                         EmbeddingEncoder = New PositionalEncoderDecoder(Model.ngramSize, D_model, VocabList)
 
                     End Sub
+
                     Public Function GetModel_ID(ByRef Token As String) As Integer
                         Return Model.GetEncoding(Token)
                     End Function
+
                     Public Function GetVocab_ID(ByRef Token As String) As Integer
                         Return Corpus.Vocabulary.Decode.DecodeText(Token, Vocab.Current) & " "
                     End Function
+
                     Public Function DecodeVocab_ID(ByRef Vocab_id As Integer) As String
 
                         Return Corpus.Vocabulary.Decode.DecodeInteger(Vocab_id, Vocab.Current)
 
                     End Function
+
                     Public Function DecodeModel_ID(ByRef Model_id As Integer) As String
 
                         Return Model.GetPosition(Model_id)
                     End Function
+
                     Public Function EncodePos(ByRef Tokens As List(Of String)) As List(Of List(Of Double))
 
                         EmbeddingEncoder.Vocabulary = VocabList
                         Return EmbeddingEncoder.Encode(Tokens)
                     End Function
+
                     Public Function DecodePos(ByRef Tokens As List(Of List(Of Double))) As List(Of String)
 
                         EmbeddingEncoder.Vocabulary = VocabList
                         Return EmbeddingEncoder.Decode(Tokens)
                     End Function
+
                     Private Class PositionalEncoderDecoder
                         Private ReadOnly encodingMatrix As List(Of List(Of Double))
                         Public Vocabulary As New List(Of String)
@@ -5495,7 +5581,9 @@ Namespace LanguageModels
                         End Function
 
                     End Class
+
                 End Class
+
                 Public Class Tokenizer
 
                     ''' <summary>
@@ -6107,9 +6195,7 @@ Namespace LanguageModels
 
                 End Class
 
-
             End Class
-
 
         End Class
 
