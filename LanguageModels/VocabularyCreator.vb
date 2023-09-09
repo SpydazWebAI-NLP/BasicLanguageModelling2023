@@ -174,7 +174,7 @@ Namespace LanguageModels
         ''' <param name="Delimiter"></param>
         ''' <returns></returns>
         Public Shared Function GetWordFrequencys(ByVal _Text As String, ByVal Delimiter As String) As List(Of WordVector)
-            GetTokenFrequencys(_Text, Delimiter)
+            Return GetTokenFrequencys(_Text, Delimiter)
         End Function
 
         ''' <summary>

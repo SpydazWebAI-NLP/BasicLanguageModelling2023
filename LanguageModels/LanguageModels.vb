@@ -534,7 +534,7 @@ Namespace LanguageModels
                             Return "No prediction available"
                         End Function
 
-                        Public Sub Train(ByVal sentences As List(Of String))
+                        Public Overrides Sub Train(ByVal sentences As List(Of String))
                             For Each sentence As String In sentences
                                 Dim tokens As String() = TokenizeSentence(sentence)
                                 Dim ngrams As List(Of String) = GenerateNgrams(tokens)
@@ -626,7 +626,7 @@ Namespace LanguageModels
                             Return candidates(selectedIndex)
                         End Function
 
-                        Private Function GenerateNextWord(ByVal context As String) As String
+                        Public Shadows Function GenerateNextWord(ByVal context As String) As String
                             Dim candidateWords As New List(Of String)()
 
                             For Each ngram In ngramCounts.Keys
@@ -728,7 +728,7 @@ Namespace LanguageModels
                             Return sentence.Trim()
                         End Function
 
-                        Public Function Train(ByVal corpus As List(Of String)) As Double
+                        Public Shadows Function Train(ByVal corpus As List(Of String)) As Double
                             ' Collect trigram counts from the corpus
                             For Each sentence In corpus
                                 Dim words = Tokenize(sentence)
@@ -820,7 +820,7 @@ Namespace LanguageModels
                             Return candidates(selectedIndex)
                         End Function
 
-                        Private Function GenerateNextWord(ByVal context As String) As String
+                        Public Shadows Function GenerateNextWord(ByVal context As String) As String
                             Dim candidateWords As New List(Of String)()
 
                             For Each ngram In ngramCounts.Keys
@@ -915,7 +915,7 @@ Namespace LanguageModels
                             Return sb.ToString().Trim()
                         End Function
 
-                        Public Function Train(ByVal corpus As List(Of String)) As Double
+                        Public Shadows Function Train(ByVal corpus As List(Of String)) As Double
                             ' Collect unigram counts from the corpus
                             For Each sentence In corpus
                                 Dim words = Tokenize(sentence)
@@ -994,7 +994,7 @@ Namespace LanguageModels
                             Return candidates(selectedIndex)
                         End Function
 
-                        Private Function GenerateNextWord() As String
+                        Public Shadows Function GenerateNextWord() As String
                             Dim rand As New Random()
                             Dim randomIndex = rand.Next(0, ngramCounts.Keys.Count)
                             Return ngramCounts.Keys(randomIndex)
@@ -1722,13 +1722,13 @@ Namespace LanguageModels
                             Next
                         End Sub
 
-                        Public Shared Function TrainModel(corpus As String) As NgramLanguageModel
+                        Public Function TrainModel(corpus As String) As NgramLanguageModel
                             Dim ngramModel = LanguageModelFactory.CreateNgramLanguageModel(2)
                             ngramModel.CreateModel(corpus)
                             Return ngramModel
                         End Function
 
-                        Public Shared Function TrainModel(data As List(Of String)) As NgramLanguageModel
+                        Public Function TrainModel(data As List(Of String)) As NgramLanguageModel
                             ' Default to ngramLength of 2 if not specified
                             Return TrainModelCodePredictor(data, 2)
                         End Function
@@ -1945,7 +1945,6 @@ Namespace LanguageModels
                         ''' trains model on current responses, Also past responses
                         ''' </summary>
                         ''' <param name="responses"></param>
-                        ''' <param name="ngramsize"></param>
                         Public Sub AddNew(ByRef responses As List(Of String))
 
                             Dim str As String = ""

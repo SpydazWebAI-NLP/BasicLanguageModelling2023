@@ -376,6 +376,7 @@ Namespace Common_NLP_Tasks
                 For Each item In Lst
                     Userinput = LCase(Userinput).Replace(item, "")
                 Next
+                Return Userinput
             End Function
 
         End Class
